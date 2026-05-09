@@ -40,6 +40,32 @@ A personal repo documenting my hands-on learning of LangChain and Gen AI enginee
 - Set up local HuggingFace embeddings (`bge-small-en-v1.5`) — no API key needed
 - Providers explored: Google Gemini, Groq, HuggingFace
 
+### Day 2 — Prompt Templates
+- Understood `ChatPromptTemplate` — dynamic prompts with variable injection
+- Learned to keep prompt logic separate from application logic (prompt.py vs app.py)
+- Built a **Gen AI Roadmap Generator** using Streamlit — users provide 4 inputs, system prompt stays hidden
+- Understood the separation of concerns: prompt template = data model, app = route
+- Built first end-to-end LangChain chain: `prompt | llm`
+
+---
+
+## Project Structure
+
+```
+lang/
+├── models/
+│   ├── gemini_chat.py        # Gemini chat model
+│   ├── gemini_embeddings.py  # Gemini embeddings
+│   ├── huggingface.py        # HuggingFace local embeddings
+│   └── groq_chat.py          # Groq/Llama chat model
+├── prompts/
+│   ├── prompt.py             # Prompt template logic
+│   └── app.py                # Streamlit UI
+├── .env
+├── pyproject.toml
+└── README.md
+```
+
 ---
 
 ## Setup
