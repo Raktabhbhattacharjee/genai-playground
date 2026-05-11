@@ -47,6 +47,30 @@ A personal repo documenting my hands-on learning of LangChain and Gen AI enginee
 - Understood the separation of concerns: prompt template = data model, app = route
 - Built first end-to-end LangChain chain: `prompt | llm`
 
+### Day 3 — Structured Output & FastAPI Integration
+- Understood structured output in LangChain using create_agent
+- Learned how to define output schemas using Pydantic models (DTOs)
+- Explored how LangChain automatically:
+  - generates prompts from schema
+  - enforces structured responses
+  - validates outputs using Pydantic
+- Understood the difference between:
+  - ProviderStrategy (native structured output)
+  - ToolStrategy (tool calling fallback)
+- Built a Ticket Parser API:
+  - Accepts unstructured user input
+  - Uses LLM to extract structured fields (name, email, issue, priority)
+- Integrated LangChain with FastAPI:
+  - Created /parse endpoint
+  - Connected service layer (agent.invoke) with API route
+- Learned the core architectural pattern:
+  - LLM handles interpretation (messy → structured)
+  - Backend enforces validation and business logic
+- Understood schema as a contract layer instead of writing manual parsing logic
+- Practiced debugging:
+  - dependency issues (langchain-google-genai)
+  - API key configuration
+  - model provider prefixes (google_genai:)
 ---
 
 ## Project Structure
