@@ -47,30 +47,14 @@ A personal repo documenting my hands-on learning of LangChain and Gen AI enginee
 - Understood the separation of concerns: prompt template = data model, app = route
 - Built first end-to-end LangChain chain: `prompt | llm`
 
-### Day 3 — Structured Output & FastAPI Integration
-- Understood structured output in LangChain using create_agent
-- Learned how to define output schemas using Pydantic models (DTOs)
-- Explored how LangChain automatically:
-  - generates prompts from schema
-  - enforces structured responses
-  - validates outputs using Pydantic
-- Understood the difference between:
-  - ProviderStrategy (native structured output)
-  - ToolStrategy (tool calling fallback)
-- Built a Ticket Parser API:
-  - Accepts unstructured user input
-  - Uses LLM to extract structured fields (name, email, issue, priority)
-- Integrated LangChain with FastAPI:
-  - Created /parse endpoint
-  - Connected service layer (agent.invoke) with API route
-- Learned the core architectural pattern:
-  - LLM handles interpretation (messy → structured)
-  - Backend enforces validation and business logic
-- Understood schema as a contract layer instead of writing manual parsing logic
-- Practiced debugging:
-  - dependency issues (langchain-google-genai)
-  - API key configuration
-  - model provider prefixes (google_genai:)
+### Day 3 — Structured Output
+- Understood structured output — forcing LLM to return typed, validated data instead of free-form text
+- Used `with_structured_output(PydanticModel)` to extract structured data from messy natural language
+- Defined schemas using Pydantic `BaseModel` — same pattern as FastAPI request/response schemas
+- Built a **Person Info Extractor** using Streamlit — paste any text, get back name, age, skills
+- Understood LLM as a parsing layer — replaces fragile regex/string splitting with intelligent extraction
+- Key insight: same Pydantic contract used in backend, now LLM fills it instead of clean JSON from frontend
+
 ---
 
 ## Project Structure
@@ -84,6 +68,9 @@ lang/
 │   └── groq_chat.py          # Groq/Llama chat model
 ├── prompts/
 │   ├── prompt.py             # Prompt template logic
+│   └── app.py                # Streamlit UI
+├── structured_output/
+│   ├── structured.py         # Pydantic schema + structured LLM logic
 │   └── app.py                # Streamlit UI
 ├── .env
 ├── pyproject.toml
