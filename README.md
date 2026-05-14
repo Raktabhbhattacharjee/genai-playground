@@ -65,6 +65,15 @@ A personal repo documenting my hands-on learning of LangChain and Gen AI enginee
 - Key insight: `PydanticOutputParser` (old way) manually injects format instructions into the prompt and parses the string — `with_structured_output` (modern way) delegates this to the model's native tool-calling API, far more reliable
 - `StrOutputParser` remains relevant — used in every chain, RAG pipeline, and agent going forward
 
+### Day 5 — Chains
+- Understood chaining — connecting LangChain components into a pipeline where output of one step becomes input of the next
+- Backend mental model: chains = FastAPI middleware pipeline, each stage transforms the data
+- Built **Simple Chain** explicitly (3 manual steps: prompt → llm → parser) then collapsed into `prompt | llm | parser`
+- Built **Sequential Chain** explicitly (6 manual steps, two LLM calls) then collapsed into `prompt1 | llm | parser | prompt2 | llm | parser`
+- Key insight: sequential chain is just simple chain repeated — same 3 steps, chained twice
+- Built a **Gen AI for Backend Devs** Streamlit app — explains Gen AI to a backend dev, then advises whether they need ML/DL
+- Understood 4 chain types: Simple, Sequential, Parallel, Conditional (Parallel + Conditional coming next)
+
 ---
 
 ## Project Structure
@@ -85,6 +94,9 @@ lang/
 ├── output_parsers/
 │   ├── parsers.py            # StrOutputParser + JsonOutputParser
 │   └── app.py                # Streamlit UI
+├── chains/
+│   ├── chains.py             # Simple + Sequential chain logic
+│   └── app.py                # Streamlit UI — Gen AI for Backend Devs
 ├── .env
 ├── pyproject.toml
 └── README.md
