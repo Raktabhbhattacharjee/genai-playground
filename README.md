@@ -72,7 +72,27 @@ A personal repo documenting my hands-on learning of LangChain and Gen AI enginee
 - Built **Sequential Chain** explicitly (6 manual steps, two LLM calls) then collapsed into `prompt1 | llm | parser | prompt2 | llm | parser`
 - Key insight: sequential chain is just simple chain repeated — same 3 steps, chained twice
 - Built a **Gen AI for Backend Devs** Streamlit app — explains Gen AI to a backend dev, then advises whether they need ML/DL
-- Understood 4 chain types: Simple, Sequential, Parallel, Conditional (Parallel + Conditional coming next)
+- Understood 4 chain types: Simple, Sequential, Parallel, Conditional
+
+### Day 6 — Parallel Chains, Conditional Chains, Runnables
+- **Parallel Chain** — `RunnableParallel` runs multiple independent chains on the same input simultaneously, returns a dict of outputs
+- Backend mental model: parallel chain = `asyncio.gather()` — don't wait sequentially when you can fire all at once
+- Built a **Tech Analysis tool** — pros, cons, and use cases generated in parallel, merged, then summarized in a final chain
+- Key insight: each branch in `RunnableParallel` is just an independent chain — they don't know about each other
+- **Conditional Chain** — `RunnableBranch` routes input to one branch based on a condition, acts as an if-elif-else inside the pipe
+- Built a **Customer Feedback Router** — classifier LLM labels input as positive/negative/neutral, correct response chain runs
+- Key insight: `RunnableBranch` is just if-elif-else dressed as a Runnable so it can plug into the pipe
+- **Runnables** — the common interface (`invoke`, `batch`, `stream`) every LangChain component implements, making everything composable via `|`
+- **LCEL** (LangChain Expression Language) — just the `|` pipe syntax; sounds fancy, is just clean shorthand for composing Runnables
+
+#### Core Runnables to know
+
+| Runnable | Purpose | Backend analog |
+|---|---|---|
+| `RunnableParallel` | Multiple chains, same input, simultaneously | `asyncio.gather()` |
+| `RunnableLambda` | Plug any Python function into the pipe | Middleware / dependency |
+| `RunnablePassthrough` | Pass input through unchanged | Request context forwarding |
+| `RunnableBranch` | Route to one chain based on condition | Service layer dispatch |
 
 ---
 
@@ -96,6 +116,8 @@ lang/
 │   └── app.py                # Streamlit UI
 ├── chains/
 │   ├── chains.py             # Simple + Sequential chain logic
+│   ├── parallel_chain.py     # RunnableParallel — tech analysis tool
+│   ├── conditional_chain.py  # RunnableBranch — customer feedback router
 │   └── app.py                # Streamlit UI — Gen AI for Backend Devs
 ├── .env
 ├── pyproject.toml
