@@ -1,0 +1,19 @@
+The Basics of Distributed Systems
+
+A distributed system is a collection of independent computers that appear to its users as a single coherent system. These systems communicate and coordinate their actions by passing messages over a network. The main goal of building a distributed system is to share resources and improve reliability, scalability, and performance beyond what a single machine can offer.
+
+Why Build Distributed Systems
+
+There are several reasons to distribute a system across multiple machines. First, a single machine has physical limits on CPU, memory, and storage. Second, distributing load across machines improves fault tolerance, since the failure of one node does not necessarily bring down the entire system. Third, placing servers closer to users geographically reduces latency.
+
+Common Challenges
+
+Distributed systems introduce problems that do not exist in single-machine systems. Network partitions can cause nodes to lose contact with each other. Clocks on different machines drift, making it hard to agree on the order of events. Partial failures are especially tricky, because a request might fail without the caller knowing whether the operation actually completed on the other side.
+
+Consistency Models
+
+Systems typically choose between strong consistency and eventual consistency. Strong consistency guarantees that once a write completes, every subsequent read will see that write. Eventual consistency relaxes this guarantee, allowing temporary divergence between replicas in exchange for higher availability and lower latency.
+
+Closing Thoughts
+
+Understanding these tradeoffs is essential for anyone building backend systems at scale. The CAP theorem formalizes the idea that a distributed system can only provide two of the following three guarantees at once: consistency, availability, and partition tolerance.
